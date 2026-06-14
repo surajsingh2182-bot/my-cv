@@ -385,7 +385,7 @@
     /* subtle nod animation */
     .nod-left  { transform-box:fill-box; transform-origin:bottom center; animation:nod 3.4s ease-in-out infinite; }
     .nod-right { transform-box:fill-box; transform-origin:bottom center; animation:nod 3.4s ease-in-out infinite 1.7s; }
-    @keyframes nod { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(1px) rotate(-1.5deg);} }
+    @keyframes nod { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(3px) rotate(-5deg);} }
     /* speech bubbles — alternate turns */
     .bubble { opacity:0; transform-box:fill-box; transform-origin:bottom center; }
     .bubble-left  { animation:pop 3.4s ease-in-out infinite; }
@@ -396,8 +396,8 @@
       48%,100%{ opacity:0; transform:scale(0.8); }
     }
     .bubble-dot { animation:dotPulse 1s ease-in-out infinite; }
-    .bubble-dot:nth-child(2){ animation-delay:0.15s; }
-    .bubble-dot:nth-child(3){ animation-delay:0.3s; }
+    .bubble-dot:nth-of-type(2){ animation-delay:0.15s; }
+    .bubble-dot:nth-of-type(3){ animation-delay:0.3s; }
     @keyframes dotPulse { 0%,100%{opacity:0.4;} 50%{opacity:1;} }
     @media(max-width:680px){ .meeting-anim { display:none; } }
 
@@ -898,7 +898,7 @@
         <div class="stag rv"><span class="stag-line"></span> Experience</div>
         <h2 class="sh rv d1" style="margin-bottom:0;">Where I've <span class="it gr">made impact.</span></h2>
       </div>
-      <div class="meeting-anim rv d2" aria-hidden="true">
+      <div class="meeting-anim" aria-hidden="true">
         <svg viewBox="0 0 240 130">
           <!-- Left speech bubble -->
           <g class="bubble bubble-left">
