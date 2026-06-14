@@ -287,6 +287,62 @@
     }
     .ach-l { font-size:0.75rem; color:var(--muted); margin-top:0.3rem; line-height:1.4; }
 
+    /* ── Skills section + Agile animation ── */
+    #skills { position:relative; overflow:hidden; }
+    .agile-bg {
+      position:absolute; inset:0; z-index:0; pointer-events:none;
+      overflow:hidden;
+    }
+    /* Rotating sprint cycle ring (right side) */
+    .sprint-ring {
+      position:absolute; top:50%; right:-220px; transform:translateY(-50%);
+      width:560px; height:560px; opacity:0.5;
+    }
+    .sprint-ring svg { width:100%; height:100%; animation:spinSlow 40s linear infinite; }
+    @keyframes spinSlow { to { transform:rotate(360deg); } }
+    .sprint-ring .ring-track { fill:none; stroke:rgba(30,107,123,0.12); stroke-width:1.5; }
+    .sprint-ring .ring-dash {
+      fill:none; stroke:rgba(30,107,123,0.35); stroke-width:2;
+      stroke-dasharray:14 22; stroke-linecap:round;
+      animation:dashMove 6s linear infinite;
+    }
+    @keyframes dashMove { to { stroke-dashoffset:-360; } }
+    /* Sprint stage nodes orbiting */
+    .sprint-node {
+      fill:#fff; stroke:#1E6B7B; stroke-width:1.5;
+    }
+    .sprint-label {
+      font:600 11px Inter, sans-serif; fill:rgba(3,43,48,0.55);
+      text-anchor:middle;
+    }
+    /* Inner counter-rotating arrows */
+    .sprint-arrows { animation:spinReverse 28s linear infinite; transform-origin:center; }
+    @keyframes spinReverse { to { transform:rotate(-360deg); } }
+    .sprint-arrows path { fill:none; stroke:rgba(3,43,48,0.18); stroke-width:2.5; stroke-linecap:round; }
+
+    /* Floating kanban cards drifting up (left side) */
+    .kanban-float { position:absolute; bottom:-60px; opacity:0; }
+    .kanban-card {
+      width:90px; padding:8px 10px; border-radius:8px;
+      background:rgba(255,255,255,0.7); border:1px solid rgba(30,107,123,0.2);
+      box-shadow:0 4px 16px rgba(3,43,48,0.06); backdrop-filter:blur(4px);
+    }
+    .kc-bar { height:4px; border-radius:2px; background:rgba(30,107,123,0.3); margin-bottom:5px; }
+    .kc-bar.short { width:55%; }
+    .kc-tag { display:inline-block; font:600 7px Inter,sans-serif; text-transform:uppercase; letter-spacing:0.06em; padding:2px 5px; border-radius:3px; background:rgba(30,107,123,0.12); color:#1E6B7B; }
+    .kf1 { left:4%;  animation:drift 14s linear infinite; }
+    .kf2 { left:14%; animation:drift 18s linear infinite 4s; }
+    .kf3 { left:24%; animation:drift 16s linear infinite 8s; }
+    @keyframes drift {
+      0%   { transform:translateY(0) rotate(-4deg); opacity:0; }
+      10%  { opacity:0.65; }
+      90%  { opacity:0.65; }
+      100% { transform:translateY(-115vh) rotate(4deg); opacity:0; }
+    }
+    /* keep content above animation */
+    #skills > .stag, #skills > .sh, #skills > .sub, #skills > .bento { position:relative; z-index:1; }
+    @media(max-width:900px){ .kanban-float { display:none; } .sprint-ring { right:-300px; opacity:0.3; } }
+
     /* ── Skills Bento ── */
     .bento { display:grid; grid-template-columns:repeat(12,1fr); gap:1rem; }
     .bc { grid-column:span 4; background:var(--white); border:1px solid var(--border); border-radius:12px; padding:1.75rem; transition:border-color 0.25s,box-shadow 0.25s; position:relative; overflow:hidden; }
@@ -702,6 +758,51 @@
 
   <!-- Skills -->
   <section id="skills">
+
+    <!-- Agile methodology background animation -->
+    <div class="agile-bg" aria-hidden="true">
+      <!-- Rotating sprint cycle ring -->
+      <div class="sprint-ring">
+        <svg viewBox="0 0 400 400">
+          <!-- outer track -->
+          <circle class="ring-track" cx="200" cy="200" r="170"/>
+          <circle class="ring-dash"  cx="200" cy="200" r="170"/>
+          <!-- inner counter-rotating arrows (cycle) -->
+          <g class="sprint-arrows">
+            <path d="M200 90 A110 110 0 0 1 295 255" />
+            <path d="M290 250 l8 12 -14 2" />
+            <path d="M200 310 A110 110 0 0 1 105 145" />
+            <path d="M110 150 l-8 -12 14 -2" />
+          </g>
+          <!-- sprint stage nodes around the ring -->
+          <g>
+            <circle class="sprint-node" cx="200" cy="30"  r="6"/>
+            <text class="sprint-label" x="200" y="18">Plan</text>
+            <circle class="sprint-node" cx="320" cy="120" r="6"/>
+            <text class="sprint-label" x="350" y="118">Design</text>
+            <circle class="sprint-node" cx="320" cy="280" r="6"/>
+            <text class="sprint-label" x="352" y="284">Develop</text>
+            <circle class="sprint-node" cx="200" cy="370" r="6"/>
+            <text class="sprint-label" x="200" y="388">Test</text>
+            <circle class="sprint-node" cx="80"  cy="280" r="6"/>
+            <text class="sprint-label" x="48"  y="284">Review</text>
+            <circle class="sprint-node" cx="80"  cy="120" r="6"/>
+            <text class="sprint-label" x="46"  y="118">Retro</text>
+          </g>
+        </svg>
+      </div>
+      <!-- Floating kanban cards -->
+      <div class="kanban-float kf1">
+        <div class="kanban-card"><div class="kc-bar"></div><div class="kc-bar short"></div><span class="kc-tag">To Do</span></div>
+      </div>
+      <div class="kanban-float kf2">
+        <div class="kanban-card"><div class="kc-bar"></div><div class="kc-bar short"></div><span class="kc-tag">In Progress</span></div>
+      </div>
+      <div class="kanban-float kf3">
+        <div class="kanban-card"><div class="kc-bar"></div><div class="kc-bar short"></div><span class="kc-tag">Done</span></div>
+      </div>
+    </div>
+
     <div class="stag rv"><span class="stag-line"></span> Skills & Tools</div>
     <h2 class="sh rv d1">A <span class="it">versatile</span> <span class="gr">toolkit.</span></h2>
     <p class="sub rv d2" style="margin-bottom:3rem;">Built across years of hands-on delivery in HCM, ERP, IoT and enterprise applications.</p>
