@@ -439,12 +439,33 @@
       margin-bottom:1.2rem;
     }
     .exp-proj::before { content:''; display:block; width:14px; height:1.5px; background:var(--accent); }
-    .exp-summary { font-size:0.95rem; color:var(--text); font-weight:600; line-height:1.6; margin-bottom:1.2rem; max-width:640px; }
-    .exp-summary .hl { background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; font-weight:800; }
-    .exp-pts { list-style:none; display:flex; flex-direction:column; gap:0.65rem; }
-    .exp-pts li b { color:var(--accent); font-weight:700; }
-    .exp-pts li { font-size:0.88rem; color:var(--mid); line-height:1.7; padding-left:1.4rem; position:relative; }
-    .exp-pts li::before { content:''; position:absolute; left:0; top:0.62em; width:6px; height:1.5px; background:var(--accent); }
+    /* three-block structure: Project / What I Did / Impact */
+    .exp-blocks { display:flex; flex-direction:column; gap:1.5rem; max-width:660px; margin-top:1.5rem; }
+    .exp-block { display:grid; grid-template-columns:130px 1fr; gap:1.5rem; align-items:start; }
+    .exp-block-label {
+      display:flex; align-items:center; gap:0.5rem;
+      font-size:0.66rem; text-transform:uppercase; letter-spacing:0.14em;
+      font-weight:700; color:var(--accent); padding-top:0.15rem;
+    }
+    .exp-block-num {
+      width:22px; height:22px; flex-shrink:0; border-radius:6px;
+      background:rgba(3,43,48,0.06); color:var(--accent);
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.68rem; font-weight:800; font-family:'Playfair Display',serif;
+    }
+    .exp-block-body { font-size:0.9rem; color:var(--mid); line-height:1.65; }
+    .exp-block-body b { color:var(--text); font-weight:700; }
+    /* what-i-did compact bullets */
+    .did-list { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+    .did-list li { padding-left:1.1rem; position:relative; }
+    .did-list li::before { content:''; position:absolute; left:0; top:0.6em; width:5px; height:1.5px; background:var(--accent); }
+    /* impact — metric-forward callout */
+    .impact-body { display:flex; flex-wrap:wrap; gap:0.5rem 1.5rem; align-items:center; }
+    .impact-metric { display:flex; flex-direction:column; }
+    .impact-val { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:900; line-height:1; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; letter-spacing:-0.03em; }
+    .impact-cap { font-size:0.68rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; margin-top:0.25rem; }
+    .impact-note { font-size:0.88rem; color:var(--text); font-weight:600; line-height:1.55; flex:1; min-width:200px; }
+    @media(max-width:680px){ .exp-block { grid-template-columns:1fr; gap:0.5rem; } }
 
     /* ── Education ── */
     .edu-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
@@ -1035,15 +1056,31 @@
         </div>
         <div class="exp-content rv d1">
           <div class="exp-title">Associate Business Analyst</div>
-          <div class="exp-summary">Driving end-to-end delivery on global HCM &amp; Payroll programs for <span class="hl">Fortune 500 clients</span> — sustaining a <span class="hl">9.5 average NPS</span> and a <span class="hl">100% on-time</span> record on time-critical releases.</div>
-          <ul class="exp-pts">
-            <li>Owned requirements end-to-end — translated executive stakeholder needs into airtight <b>BRD, FRD &amp; SRS</b> documents with full traceability, eliminating mid-sprint scope ambiguity.</li>
-            <li>Led <b>enterprise &amp; stakeholder analysis</b>, building business cases and RACI matrices that aligned cross-functional teams and de-risked delivery from day one.</li>
-            <li>Engineered <b>SQL database schemas</b> and authored complex DML/DDL/TCL queries to drive backend validation — catching defects before they reached UAT.</li>
-            <li>Directed <b>UAT</b> on critical releases, turning test scenarios and findings into clear go/no-go calls for clients and leadership.</li>
-            <li>Gave PMs a single source of truth with executive <b>status reporting</b> on KPIs, milestones, risks and bandwidth — keeping every project audit-ready.</li>
-            <li>Authored technical specs and user guides that made new process rollouts seamless for enterprise clients.</li>
-          </ul>
+          <div class="exp-proj">Global HCM &amp; Payroll Platform</div>
+          <div class="exp-blocks">
+            <div class="exp-block">
+              <div class="exp-block-label"><span class="exp-block-num">01</span> The Project</div>
+              <div class="exp-block-body">Large-scale HCM &amp; Payroll implementations for <b>Fortune 500 clients</b> — modernising how global enterprises run people operations.</div>
+            </div>
+            <div class="exp-block">
+              <div class="exp-block-label"><span class="exp-block-num">02</span> What I Did</div>
+              <div class="exp-block-body">
+                <ul class="did-list">
+                  <li>Turned executive needs into airtight <b>BRD, FRD &amp; SRS</b> specs with full traceability.</li>
+                  <li>Ran <b>enterprise &amp; stakeholder analysis</b> — business cases, RACI, go/no-go UAT calls.</li>
+                  <li>Built <b>SQL schemas</b> and queries to validate the backend before release.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="exp-block">
+              <div class="exp-block-label"><span class="exp-block-num">03</span> Impact</div>
+              <div class="exp-block-body impact-body">
+                <div class="impact-metric"><span class="impact-val">9.5</span><span class="impact-cap">Avg NPS</span></div>
+                <div class="impact-metric"><span class="impact-val">100%</span><span class="impact-cap">On-time</span></div>
+                <div class="impact-note">Defects caught pre-UAT and audit-ready reporting kept every critical release on schedule.</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1058,14 +1095,30 @@
         <div class="exp-content rv d1">
           <div class="exp-title">Business Development Executive</div>
           <div class="exp-proj">IoT Device Management Platform</div>
-          <div class="exp-summary">Shaped the product vision for a real-time IoT monitoring platform from <span class="hl">concept to delivery</span> — owning the backlog and turning raw business problems into shippable solutions.</div>
-          <ul class="exp-pts">
-            <li>Translated ambiguous business goals into a clear <b>product backlog</b> of EPICs and user stories, prioritised and managed end-to-end in Certinia (Salesforce).</li>
-            <li>Set the blueprint for engineering with <b>UML models and wireframes</b> in Balsamiq — giving developers a single, unambiguous picture of every requirement.</li>
-            <li>Protected scope and timelines by owning the <b>RTM</b>, controlling change requests so every sprint shipped on schedule.</li>
-            <li>Drove momentum across all <b>Scrum ceremonies</b>, removing roadblocks and keeping delivery tightly aligned to sprint goals.</li>
-            <li>Turned project data into decisions with live <b>Power BI dashboards</b> tracking progress, resourcing and throughput for leadership.</li>
-          </ul>
+          <div class="exp-blocks">
+            <div class="exp-block">
+              <div class="exp-block-label"><span class="exp-block-num">01</span> The Project</div>
+              <div class="exp-block-body">A <b>real-time IoT monitoring platform</b> — sensor nodes, gateway and cloud app giving facility teams live visibility into their devices.</div>
+            </div>
+            <div class="exp-block">
+              <div class="exp-block-label"><span class="exp-block-num">02</span> What I Did</div>
+              <div class="exp-block-body">
+                <ul class="did-list">
+                  <li>Owned the <b>product backlog</b> — EPICs &amp; user stories in Certinia (Salesforce).</li>
+                  <li>Blueprinted requirements with <b>UML models &amp; wireframes</b> in Balsamiq.</li>
+                  <li>Drove every <b>Scrum ceremony</b> and guarded scope through the RTM.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="exp-block">
+              <div class="exp-block-label"><span class="exp-block-num">03</span> Impact</div>
+              <div class="exp-block-body impact-body">
+                <div class="impact-metric"><span class="impact-val">0</span><span class="impact-cap">Missed sprints</span></div>
+                <div class="impact-metric"><span class="impact-val">Live</span><span class="impact-cap">Power BI views</span></div>
+                <div class="impact-note">Tight change control shipped every sprint on time; dashboards turned raw data into leadership decisions.</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1080,13 +1133,29 @@
         <div class="exp-content rv d1">
           <div class="exp-title">Implementation Executive</div>
           <div class="exp-proj">ERP Inventory Monitoring &amp; GPS Mobile App</div>
-          <div class="exp-summary">Bridged business and engineering on two parallel enterprise builds — the foundation of an analytical, <span class="hl">delivery-first mindset</span> I've carried into every role since.</div>
-          <ul class="exp-pts">
-            <li>Became the trusted link between <b>developers, product owner and client</b> — converting strategic objectives into a delivery roadmap everyone bought into.</li>
-            <li>Architected <b>end-to-end system flows</b> and partnered with the scrum master on business-value and complexity-point estimation to sequence work for maximum impact.</li>
-            <li>Prioritised releases against <b>business objectives</b>, building pragmatic implementation approaches that balanced speed with stability.</li>
-            <li>Kept stakeholders ahead of the curve with sharp <b>weekly reporting</b> on milestones, progress and what's next.</li>
-          </ul>
+          <div class="exp-blocks">
+            <div class="exp-block">
+              <div class="exp-block-label"><span class="exp-block-num">01</span> The Project</div>
+              <div class="exp-block-body">Two parallel enterprise builds — a real-time <b>ERP inventory system</b> and a <b>GPS field-tracking mobile app</b> for on-ground teams.</div>
+            </div>
+            <div class="exp-block">
+              <div class="exp-block-label"><span class="exp-block-num">02</span> What I Did</div>
+              <div class="exp-block-body">
+                <ul class="did-list">
+                  <li>Was the link between <b>developers, product owner &amp; client</b>.</li>
+                  <li>Architected <b>end-to-end system flows</b> and sized work with the scrum master.</li>
+                  <li>Prioritised releases and kept stakeholders aligned with sharp <b>weekly reporting</b>.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="exp-block">
+              <div class="exp-block-label"><span class="exp-block-num">03</span> Impact</div>
+              <div class="exp-block-body impact-body">
+                <div class="impact-metric"><span class="impact-val">2</span><span class="impact-cap">Products shipped</span></div>
+                <div class="impact-note">Where my <b>delivery-first mindset</b> took root — balancing speed with stability across both builds.</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
