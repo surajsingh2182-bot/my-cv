@@ -467,7 +467,82 @@
     .cert-by { font-size:0.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; }
 
     /* ── Contact ── */
-    .contact-wrap { max-width:800px; }
+    #contact { position:relative; overflow:hidden; }
+    .contact-layout { display:grid; grid-template-columns:1fr 460px; gap:4rem; align-items:center; }
+    .contact-wrap { max-width:800px; position:relative; z-index:2; }
+
+    /* Collaboration animation stage */
+    .collab-stage { position:relative; width:100%; height:420px; }
+    .collab-stage svg { width:100%; height:100%; overflow:visible; }
+
+    /* connection lines between teammates */
+    .collab-link {
+      fill:none; stroke:rgba(30,107,123,0.35); stroke-width:2;
+      stroke-dasharray:6 8; animation:linkFlow 3s linear infinite;
+    }
+    @keyframes linkFlow { to { stroke-dashoffset:-28; } }
+
+    /* teammate nodes — orbit group rotates, heads counter-rotate to stay upright */
+    .collab-orbit { transform-origin:230px 210px; animation:orbitSpin 24s linear infinite; }
+    @keyframes orbitSpin { to { transform:rotate(360deg); } }
+    .teammate { transform-box:fill-box; }
+    .tm-head { stroke-width:2.5; }
+    .tm-body { fill:none; stroke-width:2.5; stroke-linecap:round; }
+    .tm-pop { animation:tmPop 0.6s cubic-bezier(0.34,1.56,0.64,1) backwards; transform-box:fill-box; transform-origin:center; }
+    @keyframes tmPop { from { transform:scale(0); opacity:0; } to { transform:scale(1); opacity:1; } }
+
+    /* pulsing connection rings from center */
+    .pulse-ring {
+      fill:none; stroke:rgba(30,107,123,0.4); stroke-width:2;
+      transform-box:fill-box; transform-origin:center;
+      animation:pulseOut 3s ease-out infinite;
+    }
+    .pulse-ring.r2 { animation-delay:1s; }
+    .pulse-ring.r3 { animation-delay:2s; }
+    @keyframes pulseOut { 0%{transform:scale(0.2);opacity:0.8;} 100%{transform:scale(2.4);opacity:0;} }
+
+    /* central trophy — rises and shines */
+    .trophy-grp { transform-box:fill-box; transform-origin:center bottom; animation:trophyRise 1s cubic-bezier(0.34,1.56,0.64,1) backwards, trophyFloat 3.5s ease-in-out infinite 1s; }
+    @keyframes trophyRise { from { transform:translateY(40px) scale(0.4); opacity:0; } to { transform:translateY(0) scale(1); opacity:1; } }
+    @keyframes trophyFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-7px);} }
+    .trophy-cup { fill:url(#goldGrad); stroke:#032B30; stroke-width:1.5; }
+    .trophy-base { fill:#1E6B7B; }
+    .trophy-shine {
+      fill:#fff; opacity:0; transform-box:fill-box; transform-origin:center;
+      animation:shineFlash 3.5s ease-in-out infinite;
+    }
+    @keyframes shineFlash { 0%,70%{opacity:0;transform:scale(0.5);} 80%{opacity:0.9;transform:scale(1);} 100%{opacity:0;transform:scale(1.4);} }
+
+    /* victory burst rays */
+    .burst-ray {
+      stroke:rgba(212,175,55,0.55); stroke-width:2.5; stroke-linecap:round;
+      transform-box:fill-box; transform-origin:center;
+      animation:burst 3.5s ease-out infinite;
+    }
+    @keyframes burst { 0%,55%{opacity:0;transform:scale(0.4);} 70%{opacity:1;transform:scale(1);} 100%{opacity:0;transform:scale(1.5);} }
+
+    /* handshake in center */
+    .handshake { animation:shake 2.4s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+    @keyframes shake { 0%,100%{transform:translateY(0);} 25%{transform:translateY(-3px);} 75%{transform:translateY(3px);} }
+
+    /* confetti */
+    .confetti { transform-box:fill-box; transform-origin:center; }
+    .cf { animation:fall 4s linear infinite; transform-box:fill-box; }
+    .cf1{animation-delay:0s;} .cf2{animation-delay:0.6s;} .cf3{animation-delay:1.2s;}
+    .cf4{animation-delay:1.8s;} .cf5{animation-delay:2.4s;} .cf6{animation-delay:0.9s;}
+    .cf7{animation-delay:1.5s;} .cf8{animation-delay:2.1s;} .cf9{animation-delay:0.3s;}
+    @keyframes fall {
+      0%   { transform:translateY(-20px) rotate(0deg); opacity:0; }
+      10%  { opacity:1; }
+      90%  { opacity:1; }
+      100% { transform:translateY(420px) rotate(540deg); opacity:0; }
+    }
+
+    @media(max-width:1024px){
+      .contact-layout { grid-template-columns:1fr; gap:2rem; }
+      .collab-stage { height:320px; max-width:440px; margin:0 auto; }
+    }
+    @media(max-width:680px){ .collab-stage { height:280px; } }
     .contact-heading {
       font-family:'Playfair Display',serif;
       font-size:clamp(2.8rem,6vw,6rem); font-weight:900;
@@ -1044,16 +1119,110 @@
 
   <!-- Contact -->
   <section id="contact" style="background:var(--white);">
-    <div class="contact-wrap">
-      <div class="stag rv"><span class="stag-line"></span> Let's Connect</div>
-      <h2 class="contact-heading rv d1">Let's work<br><span class="it gr">together.</span></h2>
-      <div class="contact-links rv d2">
-        <a href="mailto:surajsingh2182@gmail.com" class="c-link"><span class="ic">✉</span> surajsingh2182@gmail.com</a>
-        <a href="https://www.linkedin.com/in/suraj-patil-connect" target="_blank" rel="noopener" class="c-link"><span class="ic">in</span> suraj-patil-connect</a>
-        <a href="tel:+919764466545" class="c-link"><span class="ic">📞</span> +91 97644 66545</a>
-        <a class="c-link" style="pointer-events:none;opacity:0.6;"><span class="ic">📍</span> Wakad, Pune, MH</a>
+    <div class="contact-layout">
+      <div class="contact-wrap">
+        <div class="stag rv"><span class="stag-line"></span> Let's Connect</div>
+        <h2 class="contact-heading rv d1">Let's work<br><span class="it gr">together.</span></h2>
+        <div class="contact-links rv d2">
+          <a href="mailto:surajsingh2182@gmail.com" class="c-link"><span class="ic">✉</span> surajsingh2182@gmail.com</a>
+          <a href="https://www.linkedin.com/in/suraj-patil-connect" target="_blank" rel="noopener" class="c-link"><span class="ic">in</span> suraj-patil-connect</a>
+          <a href="tel:+919764466545" class="c-link"><span class="ic">📞</span> +91 97644 66545</a>
+          <a class="c-link" style="pointer-events:none;opacity:0.6;"><span class="ic">📍</span> Wakad, Pune, MH</a>
+        </div>
+        <a href="mailto:surajsingh2182@gmail.com" class="btn-cta rv d3">Send a Message →</a>
       </div>
-      <a href="mailto:surajsingh2182@gmail.com" class="btn-cta rv d3">Send a Message →</a>
+
+      <!-- Collaboration / teamwork / winning-mindset animation -->
+      <div class="collab-stage" aria-hidden="true">
+        <svg viewBox="0 0 460 420">
+          <defs>
+            <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#f0d77b"/>
+              <stop offset="55%" stop-color="#d4af37"/>
+              <stop offset="100%" stop-color="#a8842a"/>
+            </linearGradient>
+            <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(212,175,55,0.25)"/>
+              <stop offset="100%" stop-color="rgba(212,175,55,0)"/>
+            </radialGradient>
+          </defs>
+
+          <!-- soft glow behind -->
+          <circle cx="230" cy="210" r="170" fill="url(#glowGrad)"/>
+
+          <!-- pulsing connection rings -->
+          <circle class="pulse-ring"    cx="230" cy="210" r="70"/>
+          <circle class="pulse-ring r2" cx="230" cy="210" r="70"/>
+          <circle class="pulse-ring r3" cx="230" cy="210" r="70"/>
+
+          <!-- connection lines from center to each teammate -->
+          <g class="collab-links">
+            <line class="collab-link" x1="230" y1="210" x2="230" y2="55"/>
+            <line class="collab-link" x1="230" y1="210" x2="365" y2="130"/>
+            <line class="collab-link" x1="230" y1="210" x2="365" y2="290"/>
+            <line class="collab-link" x1="230" y1="210" x2="230" y2="365"/>
+            <line class="collab-link" x1="230" y1="210" x2="95"  y2="290"/>
+            <line class="collab-link" x1="230" y1="210" x2="95"  y2="130"/>
+          </g>
+
+          <!-- orbiting teammates -->
+          <g class="collab-orbit">
+            <g class="teammate tm-pop" style="animation-delay:0.1s"><circle class="tm-head" cx="230" cy="48" r="13" fill="#032B30" stroke="#032B30"/><path class="tm-body" stroke="#032B30" d="M212 90 q0 -24 18 -24 q18 0 18 24"/></g>
+            <g class="teammate tm-pop" style="animation-delay:0.25s"><circle class="tm-head" cx="372" cy="128" r="13" fill="#1E6B7B" stroke="#1E6B7B"/><path class="tm-body" stroke="#1E6B7B" d="M354 170 q0 -24 18 -24 q18 0 18 24"/></g>
+            <g class="teammate tm-pop" style="animation-delay:0.4s"><circle class="tm-head" cx="372" cy="292" r="13" fill="#032B30" stroke="#032B30"/><path class="tm-body" stroke="#032B30" d="M354 334 q0 -24 18 -24 q18 0 18 24"/></g>
+            <g class="teammate tm-pop" style="animation-delay:0.55s"><circle class="tm-head" cx="230" cy="372" r="13" fill="#1E6B7B" stroke="#1E6B7B"/><path class="tm-body" stroke="#1E6B7B" d="M212 414 q0 -24 18 -24 q18 0 18 24"/></g>
+            <g class="teammate tm-pop" style="animation-delay:0.7s"><circle class="tm-head" cx="88" cy="292" r="13" fill="#032B30" stroke="#032B30"/><path class="tm-body" stroke="#032B30" d="M70 334 q0 -24 18 -24 q18 0 18 24"/></g>
+            <g class="teammate tm-pop" style="animation-delay:0.85s"><circle class="tm-head" cx="88" cy="128" r="13" fill="#1E6B7B" stroke="#1E6B7B"/><path class="tm-body" stroke="#1E6B7B" d="M70 170 q0 -24 18 -24 q18 0 18 24"/></g>
+          </g>
+
+          <!-- victory burst rays around trophy -->
+          <g class="burst-grp">
+            <line class="burst-ray" x1="230" y1="150" x2="230" y2="128" style="animation-delay:0s"/>
+            <line class="burst-ray" x1="270" y1="165" x2="285" y2="148" style="animation-delay:0.05s"/>
+            <line class="burst-ray" x1="190" y1="165" x2="175" y2="148" style="animation-delay:0.05s"/>
+            <line class="burst-ray" x1="285" y1="205" x2="307" y2="205" style="animation-delay:0.1s"/>
+            <line class="burst-ray" x1="175" y1="205" x2="153" y2="205" style="animation-delay:0.1s"/>
+          </g>
+
+          <!-- central trophy -->
+          <g class="trophy-grp">
+            <!-- handles -->
+            <path d="M205 185 q-18 0 -18 -16 q0 -8 8 -8" fill="none" stroke="#032B30" stroke-width="3"/>
+            <path d="M255 185 q18 0 18 -16 q0 -8 -8 -8" fill="none" stroke="#032B30" stroke-width="3"/>
+            <!-- cup -->
+            <path class="trophy-cup" d="M198 165 h64 v14 q0 32 -32 32 q-32 0 -32 -32 z"/>
+            <!-- shine -->
+            <circle class="trophy-shine" cx="215" cy="180" r="5"/>
+            <!-- stem -->
+            <rect x="225" y="211" width="10" height="16" fill="#1E6B7B"/>
+            <!-- base -->
+            <rect class="trophy-base" x="210" y="227" width="40" height="8" rx="2"/>
+            <rect class="trophy-base" x="216" y="235" width="28" height="7" rx="2"/>
+            <!-- star on cup -->
+            <path d="M230 172 l3.2 6.5 7.2 1 -5.2 5.1 1.2 7.1 -6.4 -3.4 -6.4 3.4 1.2 -7.1 -5.2 -5.1 7.2 -1 z" fill="#fff" opacity="0.9"/>
+          </g>
+
+          <!-- handshake just below trophy -->
+          <g class="handshake">
+            <path d="M214 260 l14 8 14 -8" fill="none" stroke="#032B30" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M214 260 l-10 5" stroke="#1E6B7B" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M242 260 l10 5" stroke="#1E6B7B" stroke-width="3.5" stroke-linecap="round"/>
+          </g>
+
+          <!-- confetti -->
+          <g class="confetti">
+            <rect class="cf cf1" x="120" y="0" width="7" height="7" rx="1" fill="#d4af37"/>
+            <rect class="cf cf2" x="180" y="0" width="6" height="6" rx="1" fill="#1E6B7B"/>
+            <rect class="cf cf3" x="250" y="0" width="7" height="7" rx="1" fill="#032B30"/>
+            <rect class="cf cf4" x="320" y="0" width="6" height="6" rx="1" fill="#d4af37"/>
+            <circle class="cf cf5" cx="150" cy="0" r="3.5" fill="#1E6B7B"/>
+            <circle class="cf cf6" cx="290" cy="0" r="3.5" fill="#d4af37"/>
+            <rect class="cf cf7" x="210" y="0" width="6" height="6" rx="1" fill="#1E6B7B"/>
+            <circle class="cf cf8" cx="350" cy="0" r="3.5" fill="#032B30"/>
+            <rect class="cf cf9" x="95" y="0" width="6" height="6" rx="1" fill="#d4af37"/>
+          </g>
+        </svg>
+      </div>
     </div>
   </section>
 
